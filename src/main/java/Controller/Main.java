@@ -1,8 +1,6 @@
 package Controller;
 
-import com.drawing.comm.Frame;
 import monster.MonsterTestDrive;
-import test2.TestBoats;
 import cafe.Cafe;
 
 import javax.swing.*;
@@ -14,9 +12,6 @@ public class Main {
                 break;
 
             case "2" :  new MonsterTestDrive();
-                break;
-
-            case "3" :  new TestBoats();
                 break;
 
             case "4" :  new Cafe();
