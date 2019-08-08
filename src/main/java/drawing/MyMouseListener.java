@@ -71,28 +71,26 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         }else if(option ==2 ){ //다각형
             end = e.getPoint();
             g.drawLine(start.x,start.y,end.x,end.y);
-        }else if(option==3){//사각형x`
+
+        }else if(option==3){//사각형
             map3.put("type", 3);
-            map3.put("endY", hight);
-            map3.put("endX", width);
-            map3.put("startY", start.y);
-            map3.put("startX", start.x);
+            map3.put("endY", Math.abs(hight));
+            map3.put("endX",  Math.abs(width));
+            map3.put("startY", sy);
+            map3.put("startX", sx);
             //g.drawRect(start.x, start.y, sx, sy);
             savePoint.push(map3);
             j.repaint();
 
 
-
-
         }else if(option == 4){
             map3.put("type", 4);
-            map3.put("endY", hight);
-            map3.put("endX", width);
-            map3.put("startY", start.y);
-            map3.put("startX", start.x);
+            map3.put("endY", Math.abs(hight));
+            map3.put("endX",  Math.abs(width));
+            map3.put("startY", sy);
+            map3.put("startX", sx);
             //g.drawRect(start.x, start.y, sx, sy);
             savePoint.push(map3);
-
             j.repaint();
 
         }
@@ -125,18 +123,22 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 end = e.getPoint();
                 width = end.x - start.x;
                 hight = end.y - start.y;
-                System.out.println("Start : "+start.x+" , "+start.y+" || End : "+end.x+" , "+end.y + "|| sx,sy ::"+sx +" , "+ sy +" width : "+width +" , hight : "+hight);
                 j.repaint();
-                g.drawRect(end.x, end.y , Math.abs(width), Math.abs(hight));
+                sx = Math.min(start.x, end.x);
+                sy = Math.min(start.y, end.y);
+                g.drawRect(sx, sy , Math.abs(width), Math.abs(hight));
 
 
 
         }else if(option == 4){
             end = e.getPoint();
-            sx = end.x - start.x;
-            sy = end.y - start.y;
+            width = end.x - start.x;
+            hight = end.y - start.y;
+                System.out.println("Start : "+start.x+" , "+start.y+" || End : "+end.x+" , "+end.y + "|| sx,sy ::"+sx +" , "+ sy +" width : "+width +" , hight : "+hight);
             j.repaint();
-            g.drawOval(end.x, end.y, sx, sy);
+            sx = Math.min(start.x, end.x);
+            sy = Math.min(start.y, end.y);
+            g.drawOval(sx, sy , Math.abs(width), Math.abs(hight));
         }
 
 
