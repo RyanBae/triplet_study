@@ -109,34 +109,19 @@ public class Frame extends JFrame{
                 String temp = myButton.getText();
 
                 if(temp.equals("line")){
-                    System.out.println("temp ====> "+temp);
-                    canvas.drawLine(option=1);
-
+                    option = 1;
                 }else if(temp.equals("Polygon")){
-                    System.out.println("temp ====> "+temp);
-                    canvas.drawLine(option=2);
-
+                    option = 2;
                 }else if(temp.equals("Rectangle")){
-                    System.out.println("temp ====> "+temp);
                     option = 3;
-                    canvas.drawLine(option);
-
                 }else if(temp.equals("Circle")){
-                    System.out.println("temp ====> "+temp);
                     option = 4;
-                    canvas.drawLine(option);
-
                 }else if(temp.equals("undo")){
-                    System.out.println("temp ====> "+temp);
                     option = 5;
-                    canvas.drawLine(option);
-
                 }else if(temp.equals("redo")){
-                    System.out.println("temp ====> "+temp);
                     option = 6;
-                    canvas.drawLine(option);
-
                 }
+                canvas.drawLine(option);
             }
         }
 

@@ -47,7 +47,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
 
         }else if(option ==3){ //사각형
             start = e.getPoint();
-            System.out.println(start.x+"||"+ start.y);
 
         }else if(option==4){
             start = e.getPoint();
@@ -62,9 +61,8 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Map<Object, Integer> map3 = new HashMap<>();
+        System.out.println(" 왜 두번 타는지 알아? 왜 옵션을 누르면 두번타지? ");
         if(option==1){
-
-
             //map.put("line");
             j.repaint();
 
@@ -79,6 +77,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             map3.put("startY", sy);
             map3.put("startX", sx);
             //g.drawRect(start.x, start.y, sx, sy);
+            System.out.println("사각형 도형 저장!!");
             savePoint.push(map3);
             j.repaint();
 
@@ -90,6 +89,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             map3.put("startY", sy);
             map3.put("startX", sx);
             //g.drawRect(start.x, start.y, sx, sy);
+            System.out.println("원형 도형 저장!!");
             savePoint.push(map3);
             j.repaint();
 
@@ -99,7 +99,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
     @Override
     public void mouseDragged(MouseEvent e) {
         Canvas comp = (Canvas) e.getSource();
-            Graphics g = comp.getGraphics();
+        Graphics g = comp.getGraphics();
         Map<Object, Integer> map3 = new HashMap<>();
             if(option == 1) {    //라인
             if (start != null) {
@@ -113,7 +113,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 map3.put("endX", end.x);
                 map3.put("startY", start.y);
                 map3.put("startX", start.x);
-
+                
                 savePoint.push(map3);
                 g.drawLine(start.x, start.y, end.x, end.y);
 
@@ -123,23 +123,25 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 end = e.getPoint();
                 width = end.x - start.x;
                 hight = end.y - start.y;
-                j.repaint();
+               // System.out.println("Start : "+start.x+" , "+start.y+" || End : "+end.x+" , "+end.y + "|| sx,sy ::"+sx +" , "+ sy +" width : "+width +" , hight : "+hight);
                 sx = Math.min(start.x, end.x);
                 sy = Math.min(start.y, end.y);
+                j.repaint();
                 g.drawRect(sx, sy , Math.abs(width), Math.abs(hight));
 
 
 
         }else if(option == 4){
-            end = e.getPoint();
-            width = end.x - start.x;
-            hight = end.y - start.y;
-                System.out.println("Start : "+start.x+" , "+start.y+" || End : "+end.x+" , "+end.y + "|| sx,sy ::"+sx +" , "+ sy +" width : "+width +" , hight : "+hight);
-            j.repaint();
-            sx = Math.min(start.x, end.x);
-            sy = Math.min(start.y, end.y);
-            g.drawOval(sx, sy , Math.abs(width), Math.abs(hight));
-        }
+                end = e.getPoint();
+                width = end.x - start.x;
+                hight = end.y - start.y;
+                // System.out.println("Start : "+start.x+" , "+start.y+" || End : "+end.x+" , "+end.y + "|| sx,sy ::"+sx +" , "+ sy +" width : "+width +" , hight : "+hight);
+                sx = Math.min(start.x, end.x);
+                sy = Math.min(start.y, end.y);
+                j.repaint();
+                g.drawOval(sx, sy , Math.abs(width), Math.abs(hight));
+
+            }
 
 
     }
