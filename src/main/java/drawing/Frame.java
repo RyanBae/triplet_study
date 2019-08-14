@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class Frame extends JFrame{
         public static final int LINE = 1;
-        //포인트
+        //  1포인트
         Point mouse = new Point(0,0);
 
         //프레임 구성요소
@@ -121,7 +121,9 @@ public class Frame extends JFrame{
                 }else if(temp.equals("redo")){
                     option = 6;
                 }
+
                 canvas.drawLine(option);
+
             }
         }
 

@@ -2,6 +2,9 @@ package drawing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,35 +13,45 @@ import java.util.Stack;
 
 public class Canvas extends JPanel {
 
+    int option ;
+    int x,y,w,h;
     JLabel xycoord ;
     Point mouse = new Point(0,0);
-    MyMouseListener ml = new MyMouseListener();
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
+    Map<Object, Integer> emptypo = new HashMap<>();
     Map<Object, Integer> map = new HashMap<>();
     Stack<Map> savePoint = new Stack<>();
     Stack<Map> readPoint = new Stack<>();
 
-    int x,y,w,h;
+    MyMouseListener ml = new MyMouseListener();
+
 
     public void drawLine(int i){
-        System.out.println("option :"+i);
+        for(int y = 0; y < this.getMouseListeners().length; y++){
+            removeMouseListener(ml);
+            removeMouseMotionListener(ml);
+        }
         if(i < 5){
-            ml.option = i;
             addMouseListener(ml);
             addMouseMotionListener(ml);
+            ml.option = i;
             ml.points = points;
             ml.epoints = epoints;
             ml.map = map;
             ml.j = this;
             ml.savePoint = savePoint;
         }else {
+
             if(i == 5){
-                //System.out.println(" Undo stack 에 있는 갯수 ? : "+savePoint.peek());
-                savePoint.pop();
+                System.out.println(" SavePoint : "+ savePoint);
+                emptypo = savePoint.pop();
+                System.out.println(" emptypo : "+emptypo);
                 super.repaint();
-            }else {
-                //System.out.println(" Redo stack 에 있는 갯수는 ? ::" + savePoint.peek());
+            }else if(i==6) {
+                System.out.println(" Redo ??? ");
+                savePoint.push(emptypo);
+                super.repaint();
             }
         }
     }
@@ -49,6 +62,9 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         System.out.println("savePoint size ======> "+savePoint.size());
         System.out.println("savePoint list ======> "+savePoint);
+        System.out.println("============================================");
+        System.out.println("ReadPoint size ======> "+readPoint.size());
+        System.out.println("ReadPoint list ======> "+readPoint);
         Map<String, Object> map2 ;
         for (int i=0; i < savePoint.size(); i++){
             // map = savePoint.pop();
