@@ -42,15 +42,17 @@ public class Canvas extends JPanel {
             ml.j = this;
             ml.savePoint = savePoint;
         }else {
-
             if(i == 5){
-                System.out.println(" SavePoint : "+ savePoint);
-                emptypo = savePoint.pop();
-                System.out.println(" emptypo : "+emptypo);
+                if(savePoint.size() != 0){
+                    emptypo = savePoint.pop();
+                    readPoint.push(emptypo);
+                }
                 super.repaint();
-            }else if(i==6) {
-                System.out.println(" Redo ??? ");
-                savePoint.push(emptypo);
+            }else if(i == 6) {
+                if(readPoint.size() != 0){
+                    emptypo = readPoint.pop();
+                    savePoint.push(emptypo);
+                }
                 super.repaint();
             }
         }
@@ -60,21 +62,18 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        System.out.println("savePoint size ======> "+savePoint.size());
-        System.out.println("savePoint list ======> "+savePoint);
-        System.out.println("============================================");
-        System.out.println("ReadPoint size ======> "+readPoint.size());
-        System.out.println("ReadPoint list ======> "+readPoint);
         Map<String, Object> map2 ;
         for (int i=0; i < savePoint.size(); i++){
             // map = savePoint.pop();
             map2 = savePoint.get(i);
             if(map2.get("type").equals(1)){
-                x = (Integer) map2.get("startX");
-                y = (Integer) map2.get("startY");
-                w = (Integer) map2.get("endX");
-                h = (Integer) map2.get("endY");
-                g.drawLine(x,y,w,h);
+                for (int z = 0; z > points.size(); z ++){
+                    x = (Integer) map2.get("startX");
+                    y = (Integer) map2.get("startY");
+                    w = (Integer) map2.get("endX");
+                    h = (Integer) map2.get("endY");
+                    g.drawLine(x,y,w,h);
+                }
             }else if(map2.get("type").equals(2)){
 
             }else if(map2.get("type").equals(3)){

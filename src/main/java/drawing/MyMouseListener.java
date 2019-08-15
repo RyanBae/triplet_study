@@ -63,10 +63,11 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Map<Object, Integer> map3 = new HashMap<>();
-        System.out.println(" [1] mouseReleased =============================== ");
         if(option==1){
-            //map.put("line");
-            j.repaint();
+            map3.put("log", points.size());
+            //j.repaint();
+
+
 
         }else if(option ==2 ){ //다각형
             end = e.getPoint();
@@ -107,21 +108,22 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Map<Object, Integer> map3 = new HashMap<>();
-        System.out.println(" [2] mouse Dragged =============");
+
             if(option == 1) {    //라인
                 if (start != null) {
                     end = start;
                     start = e.getPoint();
-                    //list 에 저장.
                     points.add(start);
                     epoints.add(end);
                     map3.put("type", 1);
+
                     map3.put("endY", end.y);
-                    map3.put("endX", end.x);
+                    map3.put("endX",  end.x);
                     map3.put("startY", start.y);
                     map3.put("startX", start.x);
-                    savePoint.push(map3);
+                    System.out.println("map3 ==========>"+ map3);
                     g.drawLine(start.x, start.y, end.x, end.y);
+                    savePoint.push(map3);
 
                 }
             }else if(option ==2){
