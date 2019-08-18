@@ -22,7 +22,8 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
     JLabel mode ;
     Point start = null;
     Point end = null;
-
+    Point polyStart = null;
+    Point polyEnd = null;
     int move = 0;
     JLabel xycoord ;
     Point mouse = new Point(0,0);
@@ -30,7 +31,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
 
     ArrayList points ;
     ArrayList epoints;
-    Map<Object, Integer> map;
+    Map<Object, Object> map;
     Stack<Map> savePoint;
 
     JPanel j ;
@@ -45,6 +46,12 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
            start = e.getPoint();
         }else if(option == 2){//다각형
             start = e.getPoint();
+            polyStart = start;
+            if(end == null){
+                end = e.getPoint();
+                polyEnd = end;
+            g.drawLine(start.x,start.y,end.x,end.y);
+            }
             g.drawLine(start.x,start.y,end.x,end.y);
 
         }else if(option ==3){ //사각형
@@ -62,16 +69,39 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         //end = e.getPoint(); // 드래그 한부분을 종료점으로
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
-        Map<Object, Integer> map3 = new HashMap<>();
+        Map<Object, Object> map3 = new HashMap<>();
         if(option==1){
+            map3.put("type", 1);
             map3.put("log", points.size());
-            //j.repaint();
-
+            map3.put("start", points);
+            map3.put("end", epoints);
+            savePoint.push(map3);
+            //System.out.println(" map3 :: "+ map3);
+            //System.out.println(" savePoint :: "+ savePoint);
+            j.repaint();
+            start = null;
+            end = null;
 
 
         }else if(option ==2 ){ //다각형
-            end = e.getPoint();
-            g.drawLine(start.x,start.y,end.x,end.y);
+
+            if(e.getButton() == MouseEvent.BUTTON3){
+                System.out.println(" 우클릭?  ");
+                start = polyStart;
+                end = polyEnd;
+                g.drawLine(start.x,start.y,end.x,end.y);
+/*                map3.put("type", 2);
+                map3.put("log", points.size());
+                map3.put("start", points);
+                map3.put("end", epoints);
+                savePoint.push(map3);
+                j.repaint();
+                start = null;
+                end = null;*/
+            }else if(e.getButton()==MouseEvent.BUTTON1){
+                end = e.getPoint();
+                g.drawLine(start.x,start.y,end.x,end.y);
+            }
 
         }else if(option==3){//사각형
             map3.put("type", 3);
@@ -107,7 +137,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
     public void mouseDragged(MouseEvent e) {
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
-        Map<Object, Integer> map3 = new HashMap<>();
+        Map<Object, Object> map3 = new HashMap<>();
 
             if(option == 1) {    //라인
                 if (start != null) {
@@ -115,15 +145,8 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                     start = e.getPoint();
                     points.add(start);
                     epoints.add(end);
-                    map3.put("type", 1);
-
-                    map3.put("endY", end.y);
-                    map3.put("endX",  end.x);
-                    map3.put("startY", start.y);
-                    map3.put("startX", start.x);
-                    System.out.println("map3 ==========>"+ map3);
                     g.drawLine(start.x, start.y, end.x, end.y);
-                    savePoint.push(map3);
+
 
                 }
             }else if(option ==2){

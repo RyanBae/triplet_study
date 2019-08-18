@@ -15,12 +15,16 @@ public class Canvas extends JPanel {
 
     int option ;
     int x,y,w,h;
+    Point start = null;
+    Point end = null;
+
     JLabel xycoord ;
     Point mouse = new Point(0,0);
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
-    Map<Object, Integer> emptypo = new HashMap<>();
-    Map<Object, Integer> map = new HashMap<>();
+
+    Map<Object, Object> emptypo = new HashMap<>();
+    Map<Object, Object> map = new HashMap<>();
     Stack<Map> savePoint = new Stack<>();
     Stack<Map> readPoint = new Stack<>();
 
@@ -62,19 +66,26 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Map<String, Object> map2 ;
+        Map<Object, Object> map2 ;
         for (int i=0; i < savePoint.size(); i++){
             // map = savePoint.pop();
             map2 = savePoint.get(i);
             if(map2.get("type").equals(1)){
-                for (int z = 0; z > points.size(); z ++){
-                    x = (Integer) map2.get("startX");
-                    y = (Integer) map2.get("startY");
-                    w = (Integer) map2.get("endX");
-                    h = (Integer) map2.get("endY");
-                    g.drawLine(x,y,w,h);
+                for (int z = 0; z < (Integer) map2.get("log"); z ++){
+                    points = (ArrayList) map2.get("start");
+                    epoints = (ArrayList) map2.get("end");
+                    start = (Point) points.get(z);
+                    end = (Point) epoints.get(z);
+                    g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }else if(map2.get("type").equals(2)){
+                for (int z = 0; z < (Integer) map2.get("log"); z ++){
+                    points = (ArrayList) map2.get("start");
+                    epoints = (ArrayList) map2.get("end");
+                    start = (Point) points.get(z);
+                    end = (Point) epoints.get(z);
+                    g.drawLine(start.x, start.y, end.x, end.y);
+                }
 
             }else if(map2.get("type").equals(3)){
                 x = (Integer) map2.get("startX");
