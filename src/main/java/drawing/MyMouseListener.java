@@ -84,24 +84,35 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
 
 
         }else if(option ==2 ){ //다각형
-
-            if(e.getButton() == MouseEvent.BUTTON3){
-                System.out.println(" 우클릭?  ");
+            if (e.getButton()==MouseEvent.BUTTON1) {
+                System.out.println(" 좌클릭 ? ===========");
+                end = e.getPoint();
+                points.add(start);
+                epoints.add(end);
+                System.out.println("points : "+points + " || epoints "+ epoints);
+                g.drawLine(start.x,start.y,end.x,end.y);
+            } else if(e.getButton() == MouseEvent.BUTTON3){
+                System.out.println(" 우클릭 ?  ");
+                System.out.println("points : "+points + " || epoints "+ epoints);
                 start = polyStart;
                 end = polyEnd;
                 g.drawLine(start.x,start.y,end.x,end.y);
-/*                map3.put("type", 2);
+                points.add(start);
+                epoints.add(end);
+                map3.put("type", 2);
                 map3.put("log", points.size());
                 map3.put("start", points);
                 map3.put("end", epoints);
                 savePoint.push(map3);
+                System.out.println(" map3  :: "+map3);
+                //System.out.println(" map3 :: "+ map3);
+                //System.out.println(" savePoint :: "+ savePoint);
                 j.repaint();
                 start = null;
-                end = null;*/
-            }else if(e.getButton()==MouseEvent.BUTTON1){
-                end = e.getPoint();
-                g.drawLine(start.x,start.y,end.x,end.y);
+                end = null;
             }
+
+
 
         }else if(option==3){//사각형
             map3.put("type", 3);

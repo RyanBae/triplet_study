@@ -79,11 +79,13 @@ public class Canvas extends JPanel {
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }else if(map2.get("type").equals(2)){
-                for (int z = 0; z < (Integer) map2.get("log"); z ++){
+                for (int k = 0; k < (Integer) map2.get("log"); k ++){
+                    System.out.println(" point ?? ==============>" + points);
+                    System.out.println(" Epoint ?? ==============>" + epoints);
                     points = (ArrayList) map2.get("start");
                     epoints = (ArrayList) map2.get("end");
-                    start = (Point) points.get(z);
-                    end = (Point) epoints.get(z);
+                    start = (Point) points.get(k);
+                    end = (Point) epoints.get(k);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
 
