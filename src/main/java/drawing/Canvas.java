@@ -44,7 +44,6 @@ public class Canvas extends JPanel {
         }else {
             if(i == 5){
                 if(savePoint.size() != 0){
-                    System.out.println(" ???? "+savePoint);
                     emptypo = savePoint.pop();
                     readPoint.push(emptypo);
                 }
@@ -68,12 +67,11 @@ public class Canvas extends JPanel {
             // map = savePoint.pop();
             map2 = savePoint.get(i);
             if(map2.get("type").equals(1)){
-                System.out.println(" points ======>" +points);
-                for (int z = 0; z < points.size(); z ++){
-                  /*  x = (Integer) map2.get("startX");
+                for (int z = 0; z > points.size(); z ++){
+                    x = (Integer) map2.get("startX");
                     y = (Integer) map2.get("startY");
                     w = (Integer) map2.get("endX");
-                    h = (Integer) map2.get("endY");*/
+                    h = (Integer) map2.get("endY");
                     g.drawLine(x,y,w,h);
                 }
             }else if(map2.get("type").equals(2)){
