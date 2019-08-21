@@ -18,6 +18,16 @@ public class Canvas extends JPanel {
     Point start = null;
     Point end = null;
 
+    boolean ch = false;
+
+    public boolean isCh() {
+        return ch;
+    }
+
+    public void setCh(boolean ch) {
+        this.ch = ch;
+    }
+
     JLabel xycoord ;
     Point mouse = new Point(0,0);
     ArrayList points = new ArrayList();
@@ -79,15 +89,22 @@ public class Canvas extends JPanel {
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }else if(map2.get("type").equals(2)){
-                for (int k = 0; k < (Integer) map2.get("log"); k ++){
-                    System.out.println(" point ?? ==============>" + points);
-                    System.out.println(" Epoint ?? ==============>" + epoints);
+
+                for (int k = 0; k < points.size(); k ++){
+                    System.out.println("Canvas map2"+map2);
                     points = (ArrayList) map2.get("start");
                     epoints = (ArrayList) map2.get("end");
                     start = (Point) points.get(k);
                     end = (Point) epoints.get(k);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
+                if(ch==true){
+                    map2.put("log", 0);
+                    points.clear();
+                    epoints.clear();
+                    ch = false;
+                }
+
 
             }else if(map2.get("type").equals(3)){
                 x = (Integer) map2.get("startX");
