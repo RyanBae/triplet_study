@@ -13,25 +13,16 @@ import java.util.Stack;
 
 public class MyMouseListener extends MouseAdapter implements MouseMotionListener {
 
-
-    int temp = 0;
-    int makeinstance = 0;
-    int top=-1;
     int sx, sy , w, h;
     int width, hight;
     JLabel mode ;
     Point start = null;
     Point end = null;
     Point polyStart = null;
-    Point polyEnd = null;
-    int move = 0;
-    JLabel xycoord ;
-    Point mouse = new Point(0,0);
     int option;
 
     ArrayList points ;
     ArrayList epoints;
-    Map<Object, Object> map;
     Stack<Map> savePoint;
 
     JPanel j ;
@@ -73,7 +64,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 pushMap.put("polystart", points);
                 pushMap.put("polyend", epoints);
                 savePoint.push(pushMap);
-                comp.setCh(true);
                 j.repaint();
                 start = null;
                 end = null;
@@ -155,7 +145,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                     epoints.add(end);
                     g.drawLine(start.x, start.y, end.x, end.y);
 
-
                 }
             }else if(option == 3){//사각형
                 end = e.getPoint();
@@ -165,8 +154,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 sy = Math.min(start.y, end.y);
                 j.repaint();
                 g.drawRect(sx, sy , Math.abs(width), Math.abs(hight));
-
-
 
         }else if(option == 4){
                 end = e.getPoint();

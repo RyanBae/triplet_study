@@ -13,28 +13,13 @@ import java.util.Stack;
 
 public class Canvas extends JPanel {
 
-    int option ;
     int x,y,w,h;
     Point start = null;
     Point end = null;
-
-    boolean ch = false;
-
-    public boolean isCh() {
-        return ch;
-    }
-
-    public void setCh(boolean ch) {
-        this.ch = ch;
-    }
-
-    JLabel xycoord ;
-    Point mouse = new Point(0,0);
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
 
     Map<Object, Object> emptypo = new HashMap<>();
-    Map<Object, Object> map = new HashMap<>();
     Stack<Map> savePoint = new Stack<>();
     Stack<Map> readPoint = new Stack<>();
 
@@ -52,7 +37,6 @@ public class Canvas extends JPanel {
             ml.option = i;
             ml.points = points;
             ml.epoints = epoints;
-            ml.map = map;
             ml.j = this;
             ml.savePoint = savePoint;
         }else {
@@ -94,8 +78,6 @@ public class Canvas extends JPanel {
                     epoints = (ArrayList) drawMap.get("polyend");
                     start = (Point) points.get(k);
                     end = (Point) epoints.get(k);
-                    System.out.println(" Start :: "+ start);
-                    System.out.println(" End :: "+ end);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
 
