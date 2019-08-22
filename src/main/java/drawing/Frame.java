@@ -32,21 +32,15 @@ public class Frame extends JFrame{
         int px, py;
         Point start = null;
         Point end = null;
-
-
-
-        //각 도형들의 포인트를 저장해 놓은 벡터
-        Vector<Point> sketSp = new Vector<Point>();
-
-
-
+        String title = "그림판_";
+        
 
         public Frame(){
 
             Dimension dim = new Dimension(1024,800);
 
             setLocation(400, 200 );
-            setTitle("그림판");
+            setTitle(title);
             setSize(dim);
             setLayout(null);
             setVisible(true);
