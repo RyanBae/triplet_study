@@ -13,9 +13,8 @@ import java.util.Stack;
 
 public class MyMouseListener extends MouseAdapter implements MouseMotionListener {
 
-    int sx, sy , w, h;
+    int sx, sy;
     int width, hight;
-    JLabel mode ;
     Point start = null;
     Point end = null;
     Point polyStart = null;
@@ -33,11 +32,11 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         Map<Object, Object> pushMap = new HashMap<>();
         start = null;
 
-        if(option == 1){ //라인
+        if(option == 1){
            end = null;
            start = e.getPoint();
 
-        }else if(option == 2){//다각형
+        }else if(option == 2){
             if (e.getButton()==MouseEvent.BUTTON1) {
                 start = e.getPoint();
                 if(polyStart ==null){
@@ -70,7 +69,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                 polyStart=null;
             }
 
-        }else if(option ==3){ //사각형
+        }else if(option ==3){
             start = e.getPoint();
 
         }else if(option==4){
@@ -95,7 +94,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             start = null;
             end = null;
 
-        }else if(option==3){//사각형
+        }else if(option==3){
             pushMap.put("type", 3);
             pushMap.put("endY", Math.abs(hight));
             pushMap.put("endX",  Math.abs(width));
@@ -126,7 +125,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
 
-            if(option == 1) {    //라인
+            if(option == 1) {
                 if (start != null) {
                     end = start;
                     start = e.getPoint();
@@ -135,7 +134,7 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
                     g.drawLine(start.x, start.y, end.x, end.y);
 
                 }
-            }else if(option == 3){//사각형
+            }else if(option == 3){
                 end = e.getPoint();
                 width = end.x - start.x;
                 hight = end.y - start.y;

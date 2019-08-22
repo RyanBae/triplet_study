@@ -70,7 +70,7 @@ public class Canvas extends JPanel {
                     start = (Point) points.get(z);
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
-                }
+            }
             }else if(drawMap.get("type").equals(2)){
                 for (int k = 0; k < (Integer) drawMap.get("log"); k ++){
                     points = (ArrayList) drawMap.get("polystart");
@@ -93,10 +93,6 @@ public class Canvas extends JPanel {
                 h = (Integer) drawMap.get("endY");
                 g.drawOval(x, y, w, h);
             }
-
-
-
-
 
         }
 

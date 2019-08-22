@@ -27,9 +27,6 @@ public class Frame extends JFrame{
 
         int mousepressed = 0;
         int option = 0;
-        int psize =0;
-        int move = 0;
-        int px, py;
         Point start = null;
         Point end = null;
         String title = "그림판_";
