@@ -22,15 +22,15 @@ public class Cafe {
 
 
     public void order(){
-        System.out.println("Select Menu 1.Espresso 2.Water 3.Americano 4,Vanilla latte 5. 아바라");
+        System.out.println("Select Menu 1.Espresso 2.Water 3.Americano 4,Vanilla latte 5. ice Vanilla latte");
         Scanner scanner = new Scanner(System.in);
         String a = scanner.next();
         Overloading order = new Overloading();
 
         switch (a) {
             case "1" : order.makeTea(1); break;
-            case "2" : order.makeTea(1,1,"톨"); break;
-            case "6" : order.makeTea("툴", 1,2); break;
+            case "2" : order.makeTea(1,1,"tall"); break;
+            case "6" : order.makeTea("tall", 1,2); break;
             case "3" : order.makeTea(1,1,1); break;
             case "4" : order.makeTea(1,1,1,1); break;
             case "5" : order.makeTea(1,1,1,1,1); break;

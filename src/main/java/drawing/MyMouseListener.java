@@ -82,7 +82,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
 
     }
     public void mouseReleased(MouseEvent e) {
-        //end = e.getPoint(); // 드래그 한부분을 종료점으로
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Map<Object, Object> pushMap = new HashMap<>();
@@ -92,15 +91,9 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             pushMap.put("start", points);
             pushMap.put("end", epoints);
             savePoint.push(pushMap);
-            //System.out.println(" map3 :: "+ map3);
-            //System.out.println(" savePoint :: "+ savePoint);
             j.repaint();
             start = null;
             end = null;
-
-
-        }else if(option ==2 ){ //다각형
-
 
         }else if(option==3){//사각형
             pushMap.put("type", 3);
@@ -108,8 +101,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             pushMap.put("endX",  Math.abs(width));
             pushMap.put("startY", sy);
             pushMap.put("startX", sx);
-            //g.drawRect(start.x, start.y, sx, sy);
-            System.out.println("option = 3 ");
             savePoint.push(pushMap);
             j.repaint();
             start = null;
@@ -121,8 +112,6 @@ public class MyMouseListener extends MouseAdapter implements MouseMotionListener
             pushMap.put("endX",  Math.abs(width));
             pushMap.put("startY", sy);
             pushMap.put("startX", sx);
-            //g.drawRect(start.x, start.y, sx,s sy);
-            System.out.println("option = 4 ");
             savePoint.push(pushMap);
             j.repaint();
             start = null;

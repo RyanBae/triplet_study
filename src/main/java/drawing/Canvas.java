@@ -62,7 +62,6 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         Map<Object, Object> drawMap ;
         for (int i=0; i < savePoint.size(); i++){
-            // map = savePoint.pop();
             drawMap = savePoint.get(i);
             if(drawMap.get("type").equals(1)){
                 for (int z = 0; z < (Integer) drawMap.get("log"); z ++){

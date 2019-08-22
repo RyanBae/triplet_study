@@ -46,7 +46,7 @@ public class Frame extends JFrame{
             Dimension dim = new Dimension(1024,800);
 
             setLocation(400, 200 );
-            setTitle("Ryan's Drawing Board");
+            setTitle("그림판");
             setSize(dim);
             setLayout(null);
             setVisible(true);
@@ -61,14 +61,14 @@ public class Frame extends JFrame{
             toolbar.setLocation(0,0);
             endBarPanel.setSize(new Dimension(1024,30));
             endBarPanel.setBackground(Color.gray);
-            endBarPanel.setLocation(0,750);
+            endBarPanel.setLocation(0,720);
             endBarPanel.setLayout(new BoxLayout(endBarPanel, BoxLayout.X_AXIS));
-            canvas.setSize(1000,750);
+            canvas.setSize(900,720);
             canvas.setBackground(Color.white);
             canvas.setLocation(100,0);
 
 
-            xycoord = new JLabel("[x , y] = ["+mouse.getX()+"]["+mouse.getY()+"]");
+            xycoord = new JLabel("");
             xycoord.setPreferredSize(new Dimension(200,40));
             mode = new JLabel("[Mode] = [DEFAULT]");
             endBarPanel.add(xycoord);
@@ -76,7 +76,7 @@ public class Frame extends JFrame{
 
 
             toolbar.setBackground(Color.gray);
-            toolbar.setSize(new Dimension(100,750));
+            toolbar.setSize(new Dimension(100,720));
             toolbar.setLayout(new FlowLayout());
 
 
