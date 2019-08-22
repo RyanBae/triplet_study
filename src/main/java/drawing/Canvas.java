@@ -13,28 +13,13 @@ import java.util.Stack;
 
 public class Canvas extends JPanel {
 
-    int option ;
     int x,y,w,h;
     Point start = null;
     Point end = null;
-
-    boolean ch = false;
-
-    public boolean isCh() {
-        return ch;
-    }
-
-    public void setCh(boolean ch) {
-        this.ch = ch;
-    }
-
-    JLabel xycoord ;
-    Point mouse = new Point(0,0);
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
 
     Map<Object, Object> emptypo = new HashMap<>();
-    Map<Object, Object> map = new HashMap<>();
     Stack<Map> savePoint = new Stack<>();
     Stack<Map> readPoint = new Stack<>();
 
@@ -52,7 +37,6 @@ public class Canvas extends JPanel {
             ml.option = i;
             ml.points = points;
             ml.epoints = epoints;
-            ml.map = map;
             ml.j = this;
             ml.savePoint = savePoint;
         }else {
@@ -76,47 +60,38 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Map<Object, Object> map2 ;
+        Map<Object, Object> drawMap ;
         for (int i=0; i < savePoint.size(); i++){
             // map = savePoint.pop();
-            map2 = savePoint.get(i);
-            if(map2.get("type").equals(1)){
-                for (int z = 0; z < (Integer) map2.get("log"); z ++){
-                    points = (ArrayList) map2.get("start");
-                    epoints = (ArrayList) map2.get("end");
+            drawMap = savePoint.get(i);
+            if(drawMap.get("type").equals(1)){
+                for (int z = 0; z < (Integer) drawMap.get("log"); z ++){
+                    points = (ArrayList) drawMap.get("start");
+                    epoints = (ArrayList) drawMap.get("end");
                     start = (Point) points.get(z);
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
-            }else if(map2.get("type").equals(2)){
-
-                for (int k = 0; k < points.size(); k ++){
-                    System.out.println("Canvas map2"+map2);
-                    points = (ArrayList) map2.get("start");
-                    epoints = (ArrayList) map2.get("end");
+            }else if(drawMap.get("type").equals(2)){
+                for (int k = 0; k < (Integer) drawMap.get("log"); k ++){
+                    points = (ArrayList) drawMap.get("polystart");
+                    epoints = (ArrayList) drawMap.get("polyend");
                     start = (Point) points.get(k);
                     end = (Point) epoints.get(k);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
-                if(ch==true){
-                    map2.put("log", 0);
-                    points.clear();
-                    epoints.clear();
-                    ch = false;
-                }
 
-
-            }else if(map2.get("type").equals(3)){
-                x = (Integer) map2.get("startX");
-                y = (Integer) map2.get("startY");
-                w = (Integer) map2.get("endX");
-                h = (Integer) map2.get("endY");
+            }else if(drawMap.get("type").equals(3)){
+                x = (Integer) drawMap.get("startX");
+                y = (Integer) drawMap.get("startY");
+                w = (Integer) drawMap.get("endX");
+                h = (Integer) drawMap.get("endY");
                 g.drawRect(x,y,w,h);
-            }else  if(map2.get("type").equals(4)) {
-                x = (Integer) map2.get("startX");
-                y = (Integer) map2.get("startY");
-                w = (Integer) map2.get("endX");
-                h = (Integer) map2.get("endY");
+            }else  if(drawMap.get("type").equals(4)) {
+                x = (Integer) drawMap.get("startX");
+                y = (Integer) drawMap.get("startY");
+                w = (Integer) drawMap.get("endX");
+                h = (Integer) drawMap.get("endY");
                 g.drawOval(x, y, w, h);
             }
 
