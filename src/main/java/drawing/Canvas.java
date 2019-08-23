@@ -2,9 +2,6 @@ package drawing;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,34 +17,31 @@ public class Canvas extends JPanel {
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
 
-    Map<Object, Object> emptypo = new HashMap<>();
-    Stack<Map> savePoint = new Stack<>();
-    Stack<Map> readPoint = new Stack<>();
+    Stack<Shape> savePoint = new Stack<>();
+    Stack<Shape> readPoint = new Stack<>();
 
     public void drawLine(int i){
         for(int y = 0; y < this.getMouseListeners().length; y++){
             removeMouseListener(ml);
             removeMouseMotionListener(ml);
         }
-        if(i < 5){
+        if(i < Shape.Undo){
             addMouseListener(ml);
             addMouseMotionListener(ml);
             ml.option = i;
-            ml.points = points;
-            ml.epoints = epoints;
+            ml.startPoints = points;
+            ml.endPoints = epoints;
             ml.j = this;
-            ml.savePoint = savePoint;
+            ml.shapeStack = savePoint;
         }else {
-            if(i == 5){
+            if(i == Shape.Undo){
                 if(savePoint.size() != 0){
-                    emptypo = savePoint.pop();
-                    readPoint.push(emptypo);
+                    readPoint.push(savePoint.pop());
                 }
                 super.repaint();
-            }else if(i == 6) {
+            }else if(i == Shape.Redo) {
                 if(readPoint.size() != 0){
-                    emptypo = readPoint.pop();
-                    savePoint.push(emptypo);
+                    savePoint.push(readPoint.pop());
                 }
                 super.repaint();
             }
@@ -57,23 +51,25 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Map<Object, Object> drawMap ;
+        Shape shape;
         for (int i=0; i < savePoint.size(); i++){
-            drawMap = savePoint.get(i);
-            if(drawMap.get("type").equals(1) || drawMap.get("type").equals(2)){
-                for (int z = 0; z < (Integer) drawMap.get("log"); z ++){
-                    points = (ArrayList) drawMap.get("start");
-                    epoints = (ArrayList) drawMap.get("end");
+            shape = savePoint.get(i);
+            if(shape.getType() == Shape.Line || shape.getType() == Shape.Polygon){
+                for (int z = 0; z < shape.getLog(); z ++){
+                    points = shape.getStartPoints();
+                    epoints = shape.getEndPoints();
                     start = (Point) points.get(z);
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
-            }else if(drawMap.get("type").equals(3) || drawMap.get("type").equals(4)){
-                if(drawMap.get("type").equals(3)){
-                    g.drawRect((Integer) drawMap.get("startX"), (Integer) drawMap.get("startY"), (Integer) drawMap.get("endX"), (Integer) drawMap.get("endY"));
-                }else {
-                    g.drawOval((Integer) drawMap.get("startX"), (Integer) drawMap.get("startY"), (Integer) drawMap.get("endX"), (Integer) drawMap.get("endY"));
-                }
+            }else if(shape.getType() == Shape.Rectangle){
+                start = shape.getStartPoints().get(0);
+                end = shape.getEndPoints().get(0);
+                g.drawRect(start.x, start.y, end.x, end.y);
+            }else if(shape.getType() == Shape.Circle){
+                start = shape.getStartPoints().get(0);
+                end = shape.getEndPoints().get(0);
+                g.drawOval(start.x, start.y, end.x, end.y);
             }
         }
     }
