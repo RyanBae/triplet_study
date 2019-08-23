@@ -8,29 +8,23 @@ import java.awt.event.*;
 import java.util.Vector;
 import java.util.Stack;
 
+/**
+ *  Copyright (C) 2019, Ryan.Bae
+ */
+
+
 public class Frame extends JFrame{
-        public static final int LINE = 1;
-        //  1포인트
-        Point mouse = new Point(0,0);
 
-        //프레임 구성요소
-        /*JPanel optionPaner = new JPanel();*/
-
+        String title = "R_SketchBook_ver_1";
+        String modeText = " Copyright (C) 2019, Ryan.Bae All Rights Reserved";
+        int option = 0;
 
         Canvas canvas = new Canvas();
         JMenuBar menubar = new JMenuBar();
         JToolBar toolbar = new JToolBar();
         JPanel endBarPanel =  new JPanel();
-        JLabel xycoord ;
         JLabel mode ;
 
-
-        int mousepressed = 0;
-        int option = 0;
-        Point start = null;
-        Point end = null;
-        String title = "그림판_";
-        
 
         public Frame(){
 
@@ -41,7 +35,6 @@ public class Frame extends JFrame{
             setSize(dim);
             setLayout(null);
             setVisible(true);
-
 
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -58,18 +51,12 @@ public class Frame extends JFrame{
             canvas.setBackground(Color.white);
             canvas.setLocation(100,0);
 
-
-            xycoord = new JLabel("");
-            xycoord.setPreferredSize(new Dimension(200,40));
-            mode = new JLabel("[Mode] = [DEFAULT]");
-            endBarPanel.add(xycoord);
+            mode = new JLabel(modeText);
             endBarPanel.add(mode);
-
 
             toolbar.setBackground(Color.gray);
             toolbar.setSize(new Dimension(100,720));
             toolbar.setLayout(new FlowLayout());
-
 
             JButton[] buttons = new JButton[6];
             buttons[0] = new JButton("line");
@@ -86,9 +73,6 @@ public class Frame extends JFrame{
 
             }
             toolbar.addSeparator();
-
-
-
         }
 
         class ButtonAction implements ActionListener{
@@ -96,7 +80,6 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton myButton = (JButton) e.getSource();
-                mousepressed = 0;
                 String temp = myButton.getText();
 
                 if(temp.equals("line")){
@@ -119,5 +102,5 @@ public class Frame extends JFrame{
         }
 
 
-    }
+}
 

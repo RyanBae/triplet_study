@@ -13,7 +13,8 @@ import java.util.Stack;
 
 public class Canvas extends JPanel {
 
-    int x,y,w,h;
+    MyMouseListener ml = new MyMouseListener();
+
     Point start = null;
     Point end = null;
     ArrayList points = new ArrayList();
@@ -22,9 +23,6 @@ public class Canvas extends JPanel {
     Map<Object, Object> emptypo = new HashMap<>();
     Stack<Map> savePoint = new Stack<>();
     Stack<Map> readPoint = new Stack<>();
-
-    MyMouseListener ml = new MyMouseListener();
-
 
     public void drawLine(int i){
         for(int y = 0; y < this.getMouseListeners().length; y++){
@@ -56,50 +54,29 @@ public class Canvas extends JPanel {
         }
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Map<Object, Object> drawMap ;
         for (int i=0; i < savePoint.size(); i++){
             drawMap = savePoint.get(i);
-            if(drawMap.get("type").equals(1)){
+            if(drawMap.get("type").equals(1) || drawMap.get("type").equals(2)){
                 for (int z = 0; z < (Integer) drawMap.get("log"); z ++){
                     points = (ArrayList) drawMap.get("start");
                     epoints = (ArrayList) drawMap.get("end");
                     start = (Point) points.get(z);
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
-            }
-            }else if(drawMap.get("type").equals(2)){
-                for (int k = 0; k < (Integer) drawMap.get("log"); k ++){
-                    points = (ArrayList) drawMap.get("polystart");
-                    epoints = (ArrayList) drawMap.get("polyend");
-                    start = (Point) points.get(k);
-                    end = (Point) epoints.get(k);
-                    g.drawLine(start.x, start.y, end.x, end.y);
                 }
-
-            }else if(drawMap.get("type").equals(3)){
-                x = (Integer) drawMap.get("startX");
-                y = (Integer) drawMap.get("startY");
-                w = (Integer) drawMap.get("endX");
-                h = (Integer) drawMap.get("endY");
-                g.drawRect(x,y,w,h);
-            }else  if(drawMap.get("type").equals(4)) {
-                x = (Integer) drawMap.get("startX");
-                y = (Integer) drawMap.get("startY");
-                w = (Integer) drawMap.get("endX");
-                h = (Integer) drawMap.get("endY");
-                g.drawOval(x, y, w, h);
+            }else if(drawMap.get("type").equals(3) || drawMap.get("type").equals(4)){
+                if(drawMap.get("type").equals(3)){
+                    g.drawRect((Integer) drawMap.get("startX"), (Integer) drawMap.get("startY"), (Integer) drawMap.get("endX"), (Integer) drawMap.get("endY"));
+                }else {
+                    g.drawOval((Integer) drawMap.get("startX"), (Integer) drawMap.get("startY"), (Integer) drawMap.get("endX"), (Integer) drawMap.get("endY"));
+                }
             }
-
         }
-
-
     }
-
-
 }
 
 
