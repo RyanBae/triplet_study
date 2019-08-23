@@ -8,6 +8,11 @@ import java.awt.event.*;
 import java.util.Vector;
 import java.util.Stack;
 
+/**
+ *  Copyright (C) 2019, Ryan.Bae
+ */
+
+
 public class Frame extends JFrame{
         public static final int LINE = 1;
         //  1포인트
@@ -29,7 +34,7 @@ public class Frame extends JFrame{
         int option = 0;
         Point start = null;
         Point end = null;
-        String title = "그림판_";
+        String title = "R_SketchBook_ver_1";
         
 
         public Frame(){
@@ -61,7 +66,7 @@ public class Frame extends JFrame{
 
             xycoord = new JLabel("");
             xycoord.setPreferredSize(new Dimension(200,40));
-            mode = new JLabel("[Mode] = [DEFAULT]");
+            mode = new JLabel(" Copyright (C) 2019, Ryan.Bae All Rights Reserved");
             endBarPanel.add(xycoord);
             endBarPanel.add(mode);
 
