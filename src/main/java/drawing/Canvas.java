@@ -64,8 +64,6 @@ public class Canvas extends JPanel {
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
-                System.out.println(polyPoints);
-                polyPoints = new ArrayList();
             } else if(shape.getType() == Shape.Polygon){
                 for (int y = 0; y < shape.getLog()-1; y ++){
                     polyPoints = shape.getPolyPoints();
@@ -77,13 +75,12 @@ public class Canvas extends JPanel {
                 start = shape.getStartPoints().get(0);
                 end = shape.getEndPoints().get(0);
                 g.drawRect(start.x, start.y, end.x, end.y);
-                polyPoints = new ArrayList();
             }else if(shape.getType() == Shape.Circle){
                 start = shape.getStartPoints().get(0);
                 end = shape.getEndPoints().get(0);
                 g.drawOval(start.x, start.y, end.x, end.y);
-                polyPoints = new ArrayList();
             }
+            polyPoints = new ArrayList();
         }
     }
 }
