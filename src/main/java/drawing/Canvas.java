@@ -16,6 +16,7 @@ public class Canvas extends JPanel {
     Point end = null;
     ArrayList points = new ArrayList();
     ArrayList epoints = new ArrayList();
+    ArrayList polyPoints = new ArrayList();
 
     Stack<Shape> savePoint = new Stack<>();
     Stack<Shape> readPoint = new Stack<>();
@@ -31,6 +32,7 @@ public class Canvas extends JPanel {
             ml.option = i;
             ml.startPoints = points;
             ml.endPoints = epoints;
+            ml.polyPoints = polyPoints;
             ml.j = this;
             ml.shapeStack = savePoint;
         }else {
@@ -54,7 +56,7 @@ public class Canvas extends JPanel {
         Shape shape;
         for (int i=0; i < savePoint.size(); i++){
             shape = savePoint.get(i);
-            if(shape.getType() == Shape.Line || shape.getType() == Shape.Polygon){
+            if(shape.getType() == Shape.Line ){
                 for (int z = 0; z < shape.getLog(); z ++){
                     points = shape.getStartPoints();
                     epoints = shape.getEndPoints();
@@ -62,14 +64,25 @@ public class Canvas extends JPanel {
                     end = (Point) epoints.get(z);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
+                System.out.println(polyPoints);
+                polyPoints = new ArrayList();
+            } else if(shape.getType() == Shape.Polygon){
+                for (int y = 0; y < shape.getLog()-1; y ++){
+                    polyPoints = shape.getPolyPoints();
+                    start = (Point) polyPoints.get(y);
+                    end = (Point) polyPoints.get(y+1);
+                    g.drawLine(start.x, start.y, end.x, end.y);
+                }
             }else if(shape.getType() == Shape.Rectangle){
                 start = shape.getStartPoints().get(0);
                 end = shape.getEndPoints().get(0);
                 g.drawRect(start.x, start.y, end.x, end.y);
+                polyPoints = new ArrayList();
             }else if(shape.getType() == Shape.Circle){
                 start = shape.getStartPoints().get(0);
                 end = shape.getEndPoints().get(0);
                 g.drawOval(start.x, start.y, end.x, end.y);
+                polyPoints = new ArrayList();
             }
         }
     }

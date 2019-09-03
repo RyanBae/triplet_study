@@ -14,7 +14,31 @@ public class Shape {
     private int type, log;
     private ArrayList<Point> startPoints;
     private ArrayList<Point> endPoints;
+    private ArrayList<Point> polyPoints;
 
+    public static int getLine() {
+        return Line;
+    }
+
+    public static int getPolygon() {
+        return Polygon;
+    }
+
+    public static int getRectangle() {
+        return Rectangle;
+    }
+
+    public static int getCircle() {
+        return Circle;
+    }
+
+    public static int getUndo() {
+        return Undo;
+    }
+
+    public static int getRedo() {
+        return Redo;
+    }
 
     public int getType() {
         return type;
@@ -48,6 +72,14 @@ public class Shape {
         this.endPoints = endPoints;
     }
 
+    public ArrayList<Point> getPolyPoints() {
+        return polyPoints;
+    }
+
+    public void setPolyPoints(ArrayList<Point> polyPoints) {
+        this.polyPoints = polyPoints;
+    }
+
     @Override
     public String toString() {
         return "Shape{" +
@@ -55,6 +87,7 @@ public class Shape {
                 ", log=" + log +
                 ", startPoints=" + startPoints +
                 ", endPoints=" + endPoints +
+                ", polyPoints=" + polyPoints +
                 '}';
     }
 }

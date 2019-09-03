@@ -22,18 +22,22 @@ public class MyMouseListener extends MouseAdapter{
 
     ArrayList startPoints;
     ArrayList endPoints;
+    ArrayList polyPoints;
     Stack<Shape> shapeStack;
 
     JPanel j ;
 
     public void mousePressed(MouseEvent e){
-        Canvas comp = (Canvas) e.getSource();
-        Graphics g = comp.getGraphics();
-        Shape shape = new Shape();
-        start = null;
+        if(option ==Shape.Line || option==Shape.Rectangle || option==Shape.Circle){
+            end = null;
+            start = e.getPoint();
+
+        }else {
+            start=null;
+        }
+/*
 
         if(option == Shape.Polygon){
-            System.out.println(option +" = "+Shape.Polygon);
             if (e.getButton()==MouseEvent.BUTTON1) {
                 start = e.getPoint();
                 if(polyStart ==null){
@@ -69,19 +73,50 @@ public class MyMouseListener extends MouseAdapter{
                 endPoints = new ArrayList<Point>();
 
             }
+*/
 
-        }else if(option ==Shape.Line || option==Shape.Rectangle || option==Shape.Circle){
-            end = null;
-            start = e.getPoint();
-
-        }
 
     }
     public void mouseReleased(MouseEvent e) {
+        Canvas comp = (Canvas) e.getSource();
+        Graphics g = comp.getGraphics();
         Shape shape = new Shape();
 
             if (option == Shape.Line) {
                 shape.setType(Shape.Line);
+                shape.setLog(startPoints.size());
+                shape.setStartPoints(startPoints);
+                shape.setEndPoints(endPoints);
+                shapeStack.push(shape);
+                j.repaint();
+                startPoints = new ArrayList();
+                endPoints = new ArrayList();
+                start = null;
+                end = null;
+
+            }else if(option == Shape.Polygon) {
+                shape.setType(Shape.Polygon);
+                System.out.println(polyPoints);
+                if(e.getButton() == MouseEvent.BUTTON1){
+                    polyStart = e.getPoint();
+                    polyPoints.add(polyStart);
+                    if(1 < polyPoints.size()) {
+                            for (int i = 0; i < polyPoints.size()-1; i++) {
+                                start = (Point) polyPoints.get(i);
+                                end = (Point) polyPoints.get(i+1);
+                                g.drawLine(start.x, start.y, end.x, end.y);
+                            }
+                        }
+                }else if(e.getButton() == MouseEvent.BUTTON3){
+                    polyPoints.add(polyPoints.get(0));
+                    shape.setLog(polyPoints.size());
+                    shape.setPolyPoints(polyPoints);
+                    shapeStack.push(shape);
+                    j.repaint();
+                    start = null;
+                    end = null;
+
+                }
 
             }else if(option == Shape.Rectangle || option == Shape.Circle){
                 start.x = Math.min(start.x, end.x);
@@ -93,17 +128,17 @@ public class MyMouseListener extends MouseAdapter{
                 endPoints.add(end);
                 startPoints.add(start);
                 shape.setType(option);
+                shape.setLog(startPoints.size());
+                shape.setStartPoints(startPoints);
+                shape.setEndPoints(endPoints);
+                shapeStack.push(shape);
+                j.repaint();
+
+                start = null;
+                end = null;
 
             }
-            shape.setLog(startPoints.size());
-            shape.setStartPoints(startPoints);
-            shape.setEndPoints(endPoints);
-            shapeStack.push(shape);
-            j.repaint();
 
-
-            start = null;
-            end = null;
 
 
         }
@@ -134,8 +169,6 @@ public class MyMouseListener extends MouseAdapter{
                 g.drawOval(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
             }
         }
-
-
 
     }
 
