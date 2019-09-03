@@ -14,7 +14,6 @@ import java.util.Stack;
 
 public class MyMouseListener extends MouseAdapter{
 
-    int sx, sy;
     int width, hight;
     Point start = null;
     Point end = null;
@@ -34,23 +33,25 @@ public class MyMouseListener extends MouseAdapter{
         start = null;
 
         if(option == Shape.Polygon){
+            System.out.println(option +" = "+Shape.Polygon);
             if (e.getButton()==MouseEvent.BUTTON1) {
                 start = e.getPoint();
                 if(polyStart ==null){
                     polyStart = start;
                     startPoints.add(start);
                 }else {
-                    if(end == null){
-                        start = polyStart;
-                    }else {
+                    if(end != null){
                         start = end;
                         startPoints.add(start);
+                        System.out.println(" ? "+startPoints);
+                        g.drawLine(start.x, start.y, end.x, end.y);
                     }
                     end = e.getPoint();
                     endPoints.add(end);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
-
+                System.out.println("startPoint"+startPoints);
+                System.out.println("endPoint"+endPoints);
             } else if(e.getButton() == MouseEvent.BUTTON3){
                 g.drawLine(end.x, end.y, polyStart.x, polyStart.y);
                 startPoints.add(end);
@@ -69,7 +70,7 @@ public class MyMouseListener extends MouseAdapter{
 
             }
 
-        }else if(option ==3 || option==4 || option==1){
+        }else if(option ==Shape.Line || option==Shape.Rectangle || option==Shape.Circle){
             end = null;
             start = e.getPoint();
 
@@ -114,21 +115,20 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
 
-        if(option == 1) {
+        if(option == Shape.Line) {
             if (start != null) {
                 end = start;
                 start = e.getPoint();
                 startPoints.add(start);
                 endPoints.add(end);
                 g.drawLine(start.x, start.y, end.x, end.y);
-
             }
-        }else if(option == 3 || option == 4){
+        }else if(option == Shape.Rectangle || option == Shape.Circle){
             end = e.getPoint();
             width = end.x - start.x;
             hight = end.y - start.y;
             j.repaint();
-            if(option == 3) {
+            if(option == Shape.Rectangle) {
                 g.drawRect(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
             }else {
                 g.drawOval(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
