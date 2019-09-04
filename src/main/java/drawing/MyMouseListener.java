@@ -35,47 +35,6 @@ public class MyMouseListener extends MouseAdapter{
         }else {
             start=null;
         }
-/*
-
-        if(option == Shape.Polygon){
-            if (e.getButton()==MouseEvent.BUTTON1) {
-                start = e.getPoint();
-                if(polyStart ==null){
-                    polyStart = start;
-                    startPoints.add(start);
-                }else {
-                    if(end != null){
-                        start = end;
-                        startPoints.add(start);
-                        System.out.println(" ? "+startPoints);
-                        g.drawLine(start.x, start.y, end.x, end.y);
-                    }
-                    end = e.getPoint();
-                    endPoints.add(end);
-                    g.drawLine(start.x, start.y, end.x, end.y);
-                }
-                System.out.println("startPoint"+startPoints);
-                System.out.println("endPoint"+endPoints);
-            } else if(e.getButton() == MouseEvent.BUTTON3){
-                g.drawLine(end.x, end.y, polyStart.x, polyStart.y);
-                startPoints.add(end);
-                endPoints.add(polyStart);
-                shape.setType(Shape.Polygon);
-                shape.setLog(startPoints.size());
-                shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);
-                shapeStack.push(shape);
-                j.repaint();
-                start = null;
-                end = null;
-                polyStart=null;
-                startPoints = new ArrayList<Point>();
-                endPoints = new ArrayList<Point>();
-
-            }
-*/
-
-
     }
     public void mouseReleased(MouseEvent e) {
         Canvas comp = (Canvas) e.getSource();
@@ -113,6 +72,7 @@ public class MyMouseListener extends MouseAdapter{
                     shape.setPolyPoints(polyPoints);
                     shapeStack.push(shape);
                     j.repaint();
+                    polyPoints = new ArrayList();
                     start = null;
                     end = null;
 
