@@ -96,7 +96,7 @@ public class Frame extends JFrame{
                     option = 6;
                 }
 
-                canvas.drawLine(option);
+                canvas.draw(option);
 
             }
         }

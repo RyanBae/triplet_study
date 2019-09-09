@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Stack;
 
 
-//  맵을 빼고 클레스로 바꿔서 명시 하기.
+
 
 public class MyMouseListener extends MouseAdapter{
 
@@ -23,8 +23,7 @@ public class MyMouseListener extends MouseAdapter{
     ArrayList startPoints;
     ArrayList endPoints;
     ArrayList polyPoints;
-    Stack<Shape> shapeStack;
-
+    Stack shapeStack;
     JPanel j ;
 
     public void mousePressed(MouseEvent e){
@@ -40,6 +39,7 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Shape shape = new Shape();
+        Rectangle rect = new Rectangle();
 
             if (option == Shape.Line) {
                 shape.setType(Shape.Line);
@@ -75,10 +75,9 @@ public class MyMouseListener extends MouseAdapter{
                     polyPoints = new ArrayList();
                     start = null;
                     end = null;
-
                 }
 
-            }else if(option == Shape.Rectangle || option == Shape.Circle){
+            }else if(option == Shape.Rectangle ){
                 start.x = Math.min(start.x, end.x);
                 start.y = Math.min(start.y, end.y);
                 end.x = Math.abs(width);
@@ -87,23 +86,38 @@ public class MyMouseListener extends MouseAdapter{
                 startPoints = new ArrayList<Point>();
                 endPoints.add(end);
                 startPoints.add(start);
+                rect.setrStartPoint(startPoints);
+                rect.setrEndPoint(endPoints);
+                System.out.println(rect.getrStartPoint()+" , "+rect.getrEndPoint());
+                shape.setLog(startPoints.size());
+                shape.setStartPoints(startPoints);
+                shape.setEndPoints(endPoints);
+                shape.setType(option);
+                shapeStack.push(shape);
+                j.repaint();
+                start = null;
+                end = null;
+            }else {
+                start.x = Math.min(start.x, end.x);
+                start.y = Math.min(start.y, end.y);
+                end.x = Math.abs(width);
+                end.y = Math.abs(hight);
+                endPoints = new ArrayList<Point>();
+                startPoints = new ArrayList<Point>();
+                endPoints.add(end);
+                startPoints.add(start);
+                rect.setrStartPoint(startPoints);
+                rect.setrEndPoint(endPoints);
                 shape.setType(option);
                 shape.setLog(startPoints.size());
                 shape.setStartPoints(startPoints);
                 shape.setEndPoints(endPoints);
                 shapeStack.push(shape);
                 j.repaint();
-
                 start = null;
                 end = null;
-
-            }
-
-
-
         }
-
-
+        }
 
     @Override
     public void mouseDragged(MouseEvent e) {

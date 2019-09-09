@@ -21,7 +21,7 @@ public class Canvas extends JPanel {
     Stack<Shape> savePoint = new Stack<>();
     Stack<Shape> readPoint = new Stack<>();
 
-    public void drawLine(int i){
+    public void draw(int i){
         for(int y = 0; y < this.getMouseListeners().length; y++){
             removeMouseListener(ml);
             removeMouseMotionListener(ml);
@@ -35,6 +35,7 @@ public class Canvas extends JPanel {
             ml.polyPoints = polyPoints;
             ml.j = this;
             ml.shapeStack = savePoint;
+
         }else {
             if(i == Shape.Undo){
                 if(savePoint.size() != 0){
@@ -54,8 +55,10 @@ public class Canvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Shape shape;
+
         for (int i=0; i < savePoint.size(); i++){
             shape = savePoint.get(i);
+            System.out.println(shape);
             if(shape.getType() == Shape.Line ){
                 for (int z = 0; z < shape.getLog(); z ++){
                     points = shape.getStartPoints();
@@ -72,15 +75,24 @@ public class Canvas extends JPanel {
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }else if(shape.getType() == Shape.Rectangle){
-                start = shape.getStartPoints().get(0);
-                end = shape.getEndPoints().get(0);
-                g.drawRect(start.x, start.y, end.x, end.y);
+                Rectangle rect = new Rectangle();
+                rect.setrStartPoint(shape.getStartPoints());
+                rect.setrEndPoint(shape.getEndPoints());
+                g.drawRect(rect.getrStartPoint().get(0).x, rect.getrStartPoint().get(0).y
+                        ,rect.getrEndPoint().get(0).x,rect.getrEndPoint().get(0).y );
+
+
             }else if(shape.getType() == Shape.Circle){
-                start = shape.getStartPoints().get(0);
+                Circle cir = new Circle();
                 end = shape.getEndPoints().get(0);
-                g.drawOval(start.x, start.y, end.x, end.y);
+                cir.setrStartPoint(shape.getStartPoints());
+                cir.setrEndPoint(shape.getEndPoints());
+                g.drawOval(cir.getrStartPoint().get(0).x, cir.getrStartPoint().get(0).y,
+                        cir.getrEndPoint().get(0).x, cir.getrEndPoint().get(0).y);
             }
             polyPoints = new ArrayList();
+            points = new ArrayList();
+            epoints = new ArrayList();
         }
     }
 }
