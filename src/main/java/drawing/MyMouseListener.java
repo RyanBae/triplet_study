@@ -27,7 +27,7 @@ public class MyMouseListener extends MouseAdapter{
     JPanel j ;
 
     public void mousePressed(MouseEvent e){
-        if(option ==Shape.Line || option==Shape.Rectangle || option==Shape.Circle){
+        if(option ==1 || option==3 || option==4){
             end = null;
             start = e.getPoint();
 
@@ -39,13 +39,13 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
         Shape shape = new Shape();
-        Rectangle rect = new Rectangle();
 
-            if (option == Shape.Line) {
-                shape.setType(Shape.Line);
+
+            if (option == 1) {
+/*                shape.setType(Shape.Line);
                 shape.setLog(startPoints.size());
                 shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);
+                shape.setEndPoints(endPoints);*/
                 shapeStack.push(shape);
                 j.repaint();
                 startPoints = new ArrayList();
@@ -53,8 +53,8 @@ public class MyMouseListener extends MouseAdapter{
                 start = null;
                 end = null;
 
-            }else if(option == Shape.Polygon) {
-                shape.setType(Shape.Polygon);
+            }else if(option == 2) {
+                /*shape.setType(Shape.Polygon);*/
                 System.out.println(polyPoints);
                 if(e.getButton() == MouseEvent.BUTTON1){
                     polyStart = e.getPoint();
@@ -68,8 +68,8 @@ public class MyMouseListener extends MouseAdapter{
                         }
                 }else if(e.getButton() == MouseEvent.BUTTON3){
                     polyPoints.add(polyPoints.get(0));
-                    shape.setLog(polyPoints.size());
-                    shape.setPolyPoints(polyPoints);
+/*                    shape.setLog(polyPoints.size());
+                    shape.setPolyPoints(polyPoints);*/
                     shapeStack.push(shape);
                     j.repaint();
                     polyPoints = new ArrayList();
@@ -77,23 +77,22 @@ public class MyMouseListener extends MouseAdapter{
                     end = null;
                 }
 
-            }else if(option == Shape.Rectangle ){
-                start.x = Math.min(start.x, end.x);
-                start.y = Math.min(start.y, end.y);
-                end.x = Math.abs(width);
-                end.y = Math.abs(hight);
-                endPoints = new ArrayList<Point>();
+            }else if(option == 3 ){
+                Rectangle rect = new Rectangle();
+                rect.setX(Math.min(start.x, end.x));
+                rect.setY(Math.min(start.y, end.y));
+                rect.setWidth(Math.abs(width));
+                rect.setHeight(Math.abs(hight));
+                if(rect instanceof Rectangle){
+                    System.out.println("Rectangle ?????");
+                }else {
+                    System.out.println(" No!!!!!");
+                }
                 startPoints = new ArrayList<Point>();
-                endPoints.add(end);
-                startPoints.add(start);
-                rect.setrStartPoint(startPoints);
-                rect.setrEndPoint(endPoints);
-                System.out.println(rect.getrStartPoint()+" , "+rect.getrEndPoint());
-                shape.setLog(startPoints.size());
-                shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);
-                shape.setType(option);
-                shapeStack.push(shape);
+                startPoints.add(rect);
+                System.out.println(startPoints);
+                System.out.println(startPoints.toString());
+                shapeStack.push(startPoints);
                 j.repaint();
                 start = null;
                 end = null;
@@ -106,12 +105,10 @@ public class MyMouseListener extends MouseAdapter{
                 startPoints = new ArrayList<Point>();
                 endPoints.add(end);
                 startPoints.add(start);
-                rect.setrStartPoint(startPoints);
-                rect.setrEndPoint(endPoints);
-                shape.setType(option);
+/*                shape.setType(option);
                 shape.setLog(startPoints.size());
                 shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);
+                shape.setEndPoints(endPoints);*/
                 shapeStack.push(shape);
                 j.repaint();
                 start = null;
@@ -124,7 +121,7 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
 
-        if(option == Shape.Line) {
+        if(option == 1) {
             if (start != null) {
                 end = start;
                 start = e.getPoint();
@@ -132,12 +129,12 @@ public class MyMouseListener extends MouseAdapter{
                 endPoints.add(end);
                 g.drawLine(start.x, start.y, end.x, end.y);
             }
-        }else if(option == Shape.Rectangle || option == Shape.Circle){
+        }else if(option == 3 || option == 4){
             end = e.getPoint();
             width = end.x - start.x;
             hight = end.y - start.y;
             j.repaint();
-            if(option == Shape.Rectangle) {
+            if(option == 3) {
                 g.drawRect(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
             }else {
                 g.drawOval(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));

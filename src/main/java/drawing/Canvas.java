@@ -26,7 +26,7 @@ public class Canvas extends JPanel {
             removeMouseListener(ml);
             removeMouseMotionListener(ml);
         }
-        if(i < Shape.Undo){
+        if(i < 5){
             addMouseListener(ml);
             addMouseMotionListener(ml);
             ml.option = i;
@@ -37,12 +37,12 @@ public class Canvas extends JPanel {
             ml.shapeStack = savePoint;
 
         }else {
-            if(i == Shape.Undo){
+            if(i == 5){
                 if(savePoint.size() != 0){
                     readPoint.push(savePoint.pop());
                 }
                 super.repaint();
-            }else if(i == Shape.Redo) {
+            }else if(i == 6) {
                 if(readPoint.size() != 0){
                     savePoint.push(readPoint.pop());
                 }
@@ -57,9 +57,13 @@ public class Canvas extends JPanel {
         Shape shape;
 
         for (int i=0; i < savePoint.size(); i++){
-            shape = savePoint.get(i);
-            System.out.println(shape);
-            if(shape.getType() == Shape.Line ){
+            System.out.println(savePoint.get(i));
+            if(savePoint.get(i) instanceof Rectangle){
+                System.out.println("Rectangle ?????");
+            }else {
+                System.out.println(" No!!!!!");
+            }
+            /*if(shape.getType() == Shape.Line ){
                 for (int z = 0; z < shape.getLog(); z ++){
                     points = shape.getStartPoints();
                     epoints = shape.getEndPoints();
@@ -75,11 +79,7 @@ public class Canvas extends JPanel {
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }else if(shape.getType() == Shape.Rectangle){
-                Rectangle rect = new Rectangle();
-                rect.setrStartPoint(shape.getStartPoints());
-                rect.setrEndPoint(shape.getEndPoints());
-                g.drawRect(rect.getrStartPoint().get(0).x, rect.getrStartPoint().get(0).y
-                        ,rect.getrEndPoint().get(0).x,rect.getrEndPoint().get(0).y );
+
 
 
             }else if(shape.getType() == Shape.Circle){
@@ -89,7 +89,7 @@ public class Canvas extends JPanel {
                 cir.setrEndPoint(shape.getEndPoints());
                 g.drawOval(cir.getrStartPoint().get(0).x, cir.getrStartPoint().get(0).y,
                         cir.getrEndPoint().get(0).x, cir.getrEndPoint().get(0).y);
-            }
+            }*/
             polyPoints = new ArrayList();
             points = new ArrayList();
             epoints = new ArrayList();
