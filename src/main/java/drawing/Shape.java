@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Shape {
     protected int x, y, width, height;
-    private ArrayList<Point> startPoints;
-    private ArrayList<Point> endPoints;
-    private ArrayList<Point> polyPoints;
+    protected ArrayList<Point> startPoints;
+    protected ArrayList<Point> endPoints;
+    protected ArrayList<Point> polyPoints;
 
     public int getX() {
         return x;

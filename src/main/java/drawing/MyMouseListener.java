@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 
@@ -18,13 +16,11 @@ public class MyMouseListener extends MouseAdapter{
     Point start = null;
     Point end = null;
     Point polyStart = null;
+    ArrayList<Point> p = new ArrayList();
     int option;
-
-    ArrayList startPoints;
-    ArrayList endPoints;
-    ArrayList polyPoints;
-    Stack shapeStack;
     JPanel j ;
+    Shape shape = new Shape();
+
 
     public void mousePressed(MouseEvent e){
         if(option ==1 || option==3 || option==4){
@@ -38,28 +34,25 @@ public class MyMouseListener extends MouseAdapter{
     public void mouseReleased(MouseEvent e) {
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
-        Shape shape = new Shape();
+
+
 
 
             if (option == 1) {
-/*                shape.setType(Shape.Line);
-                shape.setLog(startPoints.size());
-                shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);*/
-                shapeStack.push(shape);
+                Line line = new Line();
+                line.setStartPoints(p);
+                comp.savePoint.push(line);
                 j.repaint();
-                startPoints = new ArrayList();
-                endPoints = new ArrayList();
                 start = null;
                 end = null;
 
             }else if(option == 2) {
                 /*shape.setType(Shape.Polygon);*/
-                System.out.println(polyPoints);
+                //System.out.println(polyPoints);
                 if(e.getButton() == MouseEvent.BUTTON1){
                     polyStart = e.getPoint();
-                    polyPoints.add(polyStart);
-                    if(1 < polyPoints.size()) {
+                    //polyPoints.add(polyStart);
+               /*     if(1 < polyPoints.size()) {
                             for (int i = 0; i < polyPoints.size()-1; i++) {
                                 start = (Point) polyPoints.get(i);
                                 end = (Point) polyPoints.get(i+1);
@@ -68,14 +61,14 @@ public class MyMouseListener extends MouseAdapter{
                         }
                 }else if(e.getButton() == MouseEvent.BUTTON3){
                     polyPoints.add(polyPoints.get(0));
-/*                    shape.setLog(polyPoints.size());
-                    shape.setPolyPoints(polyPoints);*/
+*//*                    shape.setLog(polyPoints.size());
+                    shape.setPolyPoints(polyPoints);*//*
                     shapeStack.push(shape);
                     j.repaint();
                     polyPoints = new ArrayList();
                     start = null;
                     end = null;
-                }
+*/                }
 
             }else if(option == 3 ){
                 Rectangle rect = new Rectangle();
@@ -83,37 +76,23 @@ public class MyMouseListener extends MouseAdapter{
                 rect.setY(Math.min(start.y, end.y));
                 rect.setWidth(Math.abs(width));
                 rect.setHeight(Math.abs(hight));
-                if(rect instanceof Rectangle){
-                    System.out.println("Rectangle ?????");
-                }else {
-                    System.out.println(" No!!!!!");
-                }
-                startPoints = new ArrayList<Point>();
-                startPoints.add(rect);
-                System.out.println(startPoints);
-                System.out.println(startPoints.toString());
-                shapeStack.push(startPoints);
+                comp.savePoint.push(rect);
+                //shapeStack.push();
                 j.repaint();
                 start = null;
                 end = null;
             }else {
-                start.x = Math.min(start.x, end.x);
-                start.y = Math.min(start.y, end.y);
-                end.x = Math.abs(width);
-                end.y = Math.abs(hight);
-                endPoints = new ArrayList<Point>();
-                startPoints = new ArrayList<Point>();
-                endPoints.add(end);
-                startPoints.add(start);
-/*                shape.setType(option);
-                shape.setLog(startPoints.size());
-                shape.setStartPoints(startPoints);
-                shape.setEndPoints(endPoints);*/
-                shapeStack.push(shape);
+                Circle cir = new Circle();
+                cir.setX(Math.min(start.x, end.x));
+                cir.setY(Math.min(start.y, end.y));
+                cir.setWidth(Math.abs(width));
+                cir.setHeight(Math.abs(hight));
+                comp.savePoint.push(cir);
+                //shapeStack.push(points);
                 j.repaint();
                 start = null;
                 end = null;
-        }
+             }
         }
 
     @Override
@@ -121,12 +100,12 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
 
+
         if(option == 1) {
             if (start != null) {
                 end = start;
                 start = e.getPoint();
-                startPoints.add(start);
-                endPoints.add(end);
+                p.add(end);
                 g.drawLine(start.x, start.y, end.x, end.y);
             }
         }else if(option == 3 || option == 4){

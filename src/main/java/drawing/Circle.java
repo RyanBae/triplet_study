@@ -4,22 +4,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Circle extends Shape{
-    private ArrayList<Point> rStartPoint;
-    private ArrayList<Point> rEndPoint;
-
-    public ArrayList<Point> getrStartPoint() {
-        return rStartPoint;
-    }
-
-    public void setrStartPoint(ArrayList<Point> rStartPoint) {
-        this.rStartPoint = rStartPoint;
-    }
-
-    public ArrayList<Point> getrEndPoint() {
-        return rEndPoint;
-    }
-
-    public void setrEndPoint(ArrayList<Point> rEndPoint) {
-        this.rEndPoint = rEndPoint;
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
     }
 }
