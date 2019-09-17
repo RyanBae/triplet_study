@@ -5,9 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Stack;
-
-
 
 
 public class MyMouseListener extends MouseAdapter{
@@ -16,10 +13,10 @@ public class MyMouseListener extends MouseAdapter{
     Point start = null;
     Point end = null;
     Point polyStart = null;
-    ArrayList<Point> p = new ArrayList();
+    ArrayList<Point> pointArrayList = new ArrayList();
     int option;
     JPanel j ;
-    Shape shape = new Shape();
+
 
 
     public void mousePressed(MouseEvent e){
@@ -35,20 +32,16 @@ public class MyMouseListener extends MouseAdapter{
         Canvas comp = (Canvas) e.getSource();
         Graphics g = comp.getGraphics();
 
-
-
-
             if (option == 1) {
                 Line line = new Line();
-                line.setStartPoints(p);
+                line.setStartPoints(pointArrayList);
                 comp.savePoint.push(line);
                 j.repaint();
                 start = null;
                 end = null;
+                pointArrayList = new ArrayList<>();
 
             }else if(option == 2) {
-                /*shape.setType(Shape.Polygon);*/
-                //System.out.println(polyPoints);
                 if(e.getButton() == MouseEvent.BUTTON1){
                     polyStart = e.getPoint();
                     //polyPoints.add(polyStart);
@@ -77,7 +70,6 @@ public class MyMouseListener extends MouseAdapter{
                 rect.setWidth(Math.abs(width));
                 rect.setHeight(Math.abs(hight));
                 comp.savePoint.push(rect);
-                //shapeStack.push();
                 j.repaint();
                 start = null;
                 end = null;
@@ -88,7 +80,6 @@ public class MyMouseListener extends MouseAdapter{
                 cir.setWidth(Math.abs(width));
                 cir.setHeight(Math.abs(hight));
                 comp.savePoint.push(cir);
-                //shapeStack.push(points);
                 j.repaint();
                 start = null;
                 end = null;
@@ -105,7 +96,7 @@ public class MyMouseListener extends MouseAdapter{
             if (start != null) {
                 end = start;
                 start = e.getPoint();
-                p.add(end);
+                pointArrayList.add(end);
                 g.drawLine(start.x, start.y, end.x, end.y);
             }
         }else if(option == 3 || option == 4){

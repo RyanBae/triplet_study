@@ -14,8 +14,6 @@ public class Canvas extends JPanel {
 
     Point start = null;
     Point end = null;
-    ArrayList<Shape> points = new ArrayList();
-    ArrayList polyPoints = new ArrayList();
 
     Stack<Shape> savePoint = new Stack<>();
     Stack<Shape> readPoint = new Stack<>();
@@ -51,7 +49,8 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         Shape shape;
 
-        for (int i=0; i < savePoint.size(); i++){
+        for (int i = 0; i < savePoint.size(); i++){
+            System.out.println(savePoint.get(i));
             if (savePoint.get(i) instanceof  Rectangle){
                 g.drawRect(savePoint.get(i).x, savePoint.get(i).y, savePoint.get(i).width, savePoint.get(i).height);
 
@@ -59,12 +58,23 @@ public class Canvas extends JPanel {
                 g.drawOval(savePoint.get(i).x, savePoint.get(i).y, savePoint.get(i).width, savePoint.get(i).height);
 
             }else if(savePoint.get(i) instanceof Line){
-                for(int j=0; j < savePoint.get(j).getStartPoints().size()-1; j++){
-                    start = savePoint.get(j).getStartPoints().get(j);
-                    end = savePoint.get(j).getStartPoints().get(j+1);
+                System.out.println(savePoint.get(i).getStartPoints());
+                System.out.println(savePoint.get(i).getStartPoints().size());
+                for(int j = 0; j < savePoint.get(i).getStartPoints().size()-1; j++){
+                    start = savePoint.get(i).getStartPoints().get(j);
+                    end = savePoint.get(i).getStartPoints().get(j+1);
+                    g.drawLine(start.x, start.y, end.x, end.y);
+                }
+            }else if(savePoint.get(i) instanceof Polygon){
+                System.out.println(savePoint.get(i).getPolyPoints());
+                System.out.println(savePoint.get(i).getPolyPoints().size());
+                for(int j = 0; j < savePoint.get(i).getPolyPoints().size()-1; j++){
+                    start = savePoint.get(i).getPolyPoints().get(j);
+                    end = savePoint.get(i).getPolyPoints().get(j+1);
                     g.drawLine(start.x, start.y, end.x, end.y);
                 }
             }
+
 
 
         }
