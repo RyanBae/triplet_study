@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class MyMouseListener extends MouseAdapter{
 
-    int width, hight;
+    int width, height;
     Point start = null;
     Point end = null;
     ArrayList<Point> pointArrayList = new ArrayList();
     int option;
-    JPanel j ;
+    JPanel jPanel;
 
 
 
@@ -35,7 +35,7 @@ public class MyMouseListener extends MouseAdapter{
                 Line line = new Line();
                 line.setStartPoints(pointArrayList);
                 comp.savePoint.push(line);
-                j.repaint();
+                jPanel.repaint();
                 start = null;
                 end = null;
                 pointArrayList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class MyMouseListener extends MouseAdapter{
                     Polygon polygon = new Polygon();
                     polygon.setPolyPoints(pointArrayList);
                     comp.savePoint.push(polygon);
-                    j.repaint();
+                    jPanel.repaint();
                     pointArrayList = new ArrayList();
                     start = null;
                     end = null;
@@ -68,9 +68,9 @@ public class MyMouseListener extends MouseAdapter{
                 rect.setX(Math.min(start.x, end.x));
                 rect.setY(Math.min(start.y, end.y));
                 rect.setWidth(Math.abs(width));
-                rect.setHeight(Math.abs(hight));
+                rect.setHeight(Math.abs(height));
                 comp.savePoint.push(rect);
-                j.repaint();
+                jPanel.repaint();
                 start = null;
                 end = null;
             }else {
@@ -78,9 +78,9 @@ public class MyMouseListener extends MouseAdapter{
                 cir.setX(Math.min(start.x, end.x));
                 cir.setY(Math.min(start.y, end.y));
                 cir.setWidth(Math.abs(width));
-                cir.setHeight(Math.abs(hight));
+                cir.setHeight(Math.abs(height));
                 comp.savePoint.push(cir);
-                j.repaint();
+                jPanel.repaint();
                 start = null;
                 end = null;
              }
@@ -102,12 +102,12 @@ public class MyMouseListener extends MouseAdapter{
         }else if(option == 3 || option == 4){
             end = e.getPoint();
             width = end.x - start.x;
-            hight = end.y - start.y;
-            j.repaint();
+            height = end.y - start.y;
+            jPanel.repaint();
             if(option == 3) {
-                g.drawRect(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
+                g.drawRect(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(height));
             }else {
-                g.drawOval(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(hight));
+                g.drawOval(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(width), Math.abs(height));
             }
         }
 
