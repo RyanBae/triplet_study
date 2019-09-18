@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Shape {
     protected int x, y, width, height;
     protected ArrayList<Point> startPoints;
-    protected ArrayList<Point> endPoints;
     protected ArrayList<Point> polyPoints;
 
     public int getX() {
@@ -49,13 +48,6 @@ public class Shape {
         this.startPoints = startPoints;
     }
 
-    public ArrayList<Point> getEndPoints() {
-        return endPoints;
-    }
-
-    public void setEndPoints(ArrayList<Point> endPoints) {
-        this.endPoints = endPoints;
-    }
 
     public ArrayList<Point> getPolyPoints() {
         return polyPoints;

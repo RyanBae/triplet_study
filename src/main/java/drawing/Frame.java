@@ -15,7 +15,7 @@ import java.util.Stack;
 
 public class Frame extends JFrame{
 
-        String title = "R_SketchBook_ver_1";
+        String title = "R_SketchBook_ver_2";
         String modeText = " Copyright (C) 2019, Ryan.Bae All Rights Reserved";
         int option = 0;
 

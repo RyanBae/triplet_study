@@ -12,7 +12,6 @@ public class MyMouseListener extends MouseAdapter{
     int width, hight;
     Point start = null;
     Point end = null;
-    Point polyStart = null;
     ArrayList<Point> pointArrayList = new ArrayList();
     int option;
     JPanel j ;
@@ -42,26 +41,27 @@ public class MyMouseListener extends MouseAdapter{
                 pointArrayList = new ArrayList<>();
 
             }else if(option == 2) {
+
                 if(e.getButton() == MouseEvent.BUTTON1){
-                    polyStart = e.getPoint();
-                    //polyPoints.add(polyStart);
-               /*     if(1 < polyPoints.size()) {
-                            for (int i = 0; i < polyPoints.size()-1; i++) {
-                                start = (Point) polyPoints.get(i);
-                                end = (Point) polyPoints.get(i+1);
+                    start = e.getPoint();
+                    pointArrayList.add(start);
+                    if(1 < pointArrayList.size()) {
+                            for (int i = 0; i < pointArrayList.size()-1; i++) {
+                                start = (Point) pointArrayList.get(i);
+                                end = (Point) pointArrayList.get(i+1);
                                 g.drawLine(start.x, start.y, end.x, end.y);
                             }
                         }
                 }else if(e.getButton() == MouseEvent.BUTTON3){
-                    polyPoints.add(polyPoints.get(0));
-*//*                    shape.setLog(polyPoints.size());
-                    shape.setPolyPoints(polyPoints);*//*
-                    shapeStack.push(shape);
+                    pointArrayList.add(pointArrayList.get(0));
+                    Polygon polygon = new Polygon();
+                    polygon.setPolyPoints(pointArrayList);
+                    comp.savePoint.push(polygon);
                     j.repaint();
-                    polyPoints = new ArrayList();
+                    pointArrayList = new ArrayList();
                     start = null;
                     end = null;
-*/                }
+                }
 
             }else if(option == 3 ){
                 Rectangle rect = new Rectangle();
